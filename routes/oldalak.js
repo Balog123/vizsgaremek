@@ -5,4 +5,4 @@ router.get("/regisztracio", (req, res) => {
     res.sendFile("regisztracio.html", { root: "./public" })
 })
 
-router.get("")
+module.exports = router
