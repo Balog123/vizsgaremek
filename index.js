@@ -1,5 +1,5 @@
 const express = require("express")
-const db = require("./db-config")
+const db = require("./routes/db-config")
 const PORT = process.env.PORT
 
 const app = express()
