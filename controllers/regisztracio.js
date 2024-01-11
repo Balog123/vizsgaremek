@@ -7,7 +7,7 @@ const regisztracio = async (req, res) => {
     if (!email || !Njelszo) {
         return res.json({ status: "error", error: "Írd be az adatokat"})
     } else {
-        db.qurey('SELECT felhasznalo_email FROM Felhasznalo WHERE felhasznalo_eamil = ?', 
+        db.query('SELECT felhasznalo_email FROM Felhasznalo WHERE felhasznalo_email = ?', 
             [email], async (err, result) => {
                 if (err) throw err
 
@@ -16,17 +16,14 @@ const regisztracio = async (req, res) => {
                 }
                 else {
                     const jelszo = await bcrypt.hash(Njelszo, 8)
-                    db.query('INSERT INTO Felhasznalo SET ?', { 
-                        keresztnev: keresztnev,
-                        vezeteknev: vezeteknev,
-                        email: email,
-                        jelszo: jelszo
-                    }, (error, results) => {
-                            if (error){
-                                throw error
-                            } else {
-                                return res.json({ status: "success", success: "A felhasznaló regisztrálva lett"})
-                            }
+                    db.query(
+                        'INSERT INTO Felhasznalo SET felhasznalo_keresztnev = ?, felhasznalo_vezeteknev = ?, felhasznalo_email = ?, felhasznalo_jelszo = ?', 
+                        [keresztnev, vezeteknev, email, jelszo], (error, results) => {
+                    if (error){
+                        throw error
+                    } else {
+                        return res.json({ status: "success", success: "A felhasznaló regisztrálva lett"})
+                    }
                 })
             }
         })
