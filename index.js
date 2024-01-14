@@ -1,10 +1,11 @@
 const express = require("express")
 const db = require("./routes/db-config")
+const cookie = require("cookie-parser")
 const PORT = process.env.PORT
 
 const app = express()
-
 app.use(express.json())
+app.use(cookie())
 
 app.use("/js", express.static(__dirname + "/public/js"))
 
