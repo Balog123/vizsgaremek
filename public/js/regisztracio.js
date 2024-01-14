@@ -11,13 +11,15 @@ form.addEventListener("submit", () => {
         headers: {
             "Content-Type":"application/json"
         }
-    }).then(res => res.json())
-    .then(data => {
-        // Handle the successful response data here
-        console.log("Registration successful:", data);
+    }).then(res => res.json()).then(data => {
+        if (data.status == "error") {
+            success.style.display = "none"
+            error.style.display = "block"
+            error.innerText = data.error
+        } else {
+            error.style.display = "none"
+            success.style.display = "block"
+            success.innerText = data.error
+        }
     })
-    .catch(error => {
-        // Handle errors during the fetch or server-side errors
-        console.error("Registration failed:", error);
-    });
-})
+});
